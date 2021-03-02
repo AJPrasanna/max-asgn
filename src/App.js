@@ -22,7 +22,7 @@ const cred_data = [
   },
   {
     username: 'Kurtle',
-    password: 'Angle99'
+    password: 'Anglee99'
   }
 ];
 const REST_API_URL = 'http://localhost:8080/api/wrestlers';
