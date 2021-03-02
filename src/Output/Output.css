@@ -1,0 +1,8 @@
+.Output{
+  width: 70%;
+  padding: 30px;
+  margin: 50px;
+  border: 6px solid rgb(126, 127, 182);
+  background-color: rgba(166, 184, 104, 0.733); 
+  text-align: justify;
+}
