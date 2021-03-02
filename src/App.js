@@ -67,6 +67,10 @@ class App extends React.Component {
     } );
 
   }
+  componentDidUpdate()
+  {
+    
+  }
   handleChange = (event) => {
     if(event.target.name === 'id')
     {
@@ -89,25 +93,7 @@ class App extends React.Component {
   handleSubmit = (event) =>
   {
     event.preventDefault();
-    var flag= 0;
-    for(var i=0;i<this.state.data.length;i++)
-    {
-      if(this.state.data[i].username === this.state.username && this.state.data[i].password === this.state.password)
-      {
-        flag = 1;
-        break;
-      }
-      continue;
-    }
-    if(flag === 1)
-    {
-      alert('Login access cleared');
-      this.setState({valid : true});
-    }
-    else
-    {
-      alert('invalid credentials');
-    }
+    alert('CALLBACK!');
   }
   handleCallback = () =>
   {
@@ -126,6 +112,11 @@ class App extends React.Component {
         console.log(response.data);
       }
     );
+
+    
+    axios.get(REST_API_URL).then((response) => {
+      this.setState({wrestlers : response.data})
+    } );
     
   }
   handleSearch = () =>
@@ -136,7 +127,7 @@ class App extends React.Component {
       response => {
         console.log(response.data);
       }
-    )
+    );
   }
   handleUpdate = () =>
   {
@@ -152,6 +143,10 @@ class App extends React.Component {
         console.log(response.data);
       }
     );
+
+    axios.get(REST_API_URL).then((response) => {
+      this.setState({wrestlers : response.data})
+    } );
   }
   handleDelete = () =>
   {
@@ -161,7 +156,11 @@ class App extends React.Component {
       .then(res => {
         console.log(res);
         console.log(res.data);
-      })
+      });
+
+      axios.get(REST_API_URL).then((response) => {
+        this.setState({wrestlers : response.data})
+      } );
   }
   render(){
   return (<div>
@@ -189,7 +188,7 @@ class App extends React.Component {
       </tbody>
     </table>
    
-    <Fragment>
+    <form onSubmit={this.handleSubmit}>
       <div className="form-group row">
         <div className="col-sm-4"></div>
         <div className="col-sm-3">
@@ -222,25 +221,26 @@ class App extends React.Component {
           name="city" value={this.state.city} onChange={this.handleChange} />
           </div>
       </div>
-    </Fragment>
+      
     <div className="row">
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button className="btn btn-success btn-lg btn-block active" onClick={this.handleAdd}>Add</button>
+      <button type="submit" className="btn btn-success btn-lg btn-block active" onClick={this.handleAdd}>Add</button>
     </div>
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button className="btn btn-primary btn-lg btn-block active" onClick={this.handleSearch}>Search</button>
+      <button type="submit" className="btn btn-primary btn-lg btn-block active" onClick={this.handleSearch}>Search</button>
     </div>
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button className="btn btn-dark btn-lg btn-block active" onClick={this.handleUpdate}>Update</button>
+      <button type="submit" className="btn btn-dark btn-lg btn-block active" onClick={this.handleUpdate}>Update</button>
     </div>
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button className="btn btn-warning btn-lg btn-block active" onClick={this.handleDelete}>Delete</button>
+      <button type="submit" className="btn btn-warning btn-lg btn-block active" onClick={this.handleDelete}>Delete</button>
     </div>
     </div>
+    </form>
    
   </div>);
 }
