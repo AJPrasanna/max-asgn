@@ -53,10 +53,10 @@ class App extends React.Component {
         city : null
       },
       valid : false,
-      id: null,
-      name:null,
-      mail:null,
-      city:null
+      id: '',
+      name:'',
+      mail:'',
+      city:''
     };
   }
   componentDidMount()
@@ -113,10 +113,7 @@ class App extends React.Component {
       }
     );
 
-    
-    axios.get(REST_API_URL).then((response) => {
-      this.setState({wrestlers : response.data})
-    } );
+    this.setState({ id : '', name : '', mail : '', city: ''});
     
   }
   handleSearch = () =>
@@ -144,9 +141,7 @@ class App extends React.Component {
       }
     );
 
-    axios.get(REST_API_URL).then((response) => {
-      this.setState({wrestlers : response.data})
-    } );
+    this.setState({ id : '', name : '', mail : '', city: ''});
   }
   handleDelete = () =>
   {
@@ -158,9 +153,14 @@ class App extends React.Component {
         console.log(res.data);
       });
 
-      axios.get(REST_API_URL).then((response) => {
-        this.setState({wrestlers : response.data})
-      } );
+      this.setState({ id : '', name : '', mail : '', city: ''});
+  }
+  handleRefresh = () =>
+  {
+    alert('refresh..');
+    axios.get(REST_API_URL).then((response) => {
+      this.setState({wrestlers : response.data})
+    } );
   }
   render(){
   return (<div>
@@ -188,7 +188,6 @@ class App extends React.Component {
       </tbody>
     </table>
    
-    <form onSubmit={this.handleSubmit}>
       <div className="form-group row">
         <div className="col-sm-4"></div>
         <div className="col-sm-3">
@@ -225,22 +224,25 @@ class App extends React.Component {
     <div className="row">
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button type="submit" className="btn btn-success btn-lg btn-block active" onClick={this.handleAdd}>Add</button>
+      <button className="btn btn-success btn-lg btn-block active" onClick={this.handleAdd}>Add</button>
     </div>
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button type="submit" className="btn btn-primary btn-lg btn-block active" onClick={this.handleSearch}>Search</button>
+      <button className="btn btn-primary btn-lg btn-block active" onClick={this.handleSearch}>Search</button>
     </div>
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button type="submit" className="btn btn-dark btn-lg btn-block active" onClick={this.handleUpdate}>Update</button>
+      <button className="btn btn-dark btn-lg btn-block active" onClick={this.handleUpdate}>Update</button>
     </div>
     <div className="col-sm-1"></div>
     <div className="col-sm-1">
-      <button type="submit" className="btn btn-warning btn-lg btn-block active" onClick={this.handleDelete}>Delete</button>
+      <button className="btn btn-warning btn-lg btn-block active" onClick={this.handleDelete}>Delete</button>
+    </div>
+    <div className="col-sm-1"></div>
+    <div className="col-sm-1">
+      <button className="btn btn-primary btn-lg btn-block active" onClick={this.handleRefresh}>Refresh</button>
     </div>
     </div>
-    </form>
    
   </div>);
 }
